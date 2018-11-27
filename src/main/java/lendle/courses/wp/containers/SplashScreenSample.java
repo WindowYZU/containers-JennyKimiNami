@@ -6,12 +6,16 @@
 package lendle.courses.wp.containers;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.io.File;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JProgressBar;
 import javax.swing.JWindow;
 import javax.swing.WindowConstants;
 
@@ -28,17 +32,25 @@ public class SplashScreenSample {
         // TODO code application logic here
         JFrame frame=new JFrame();
         frame.setSize(800, 600);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);        
         //init the JWindow, add component to its content pane
-        JWindow window=null;
-        ImageIcon icon=new ImageIcon(new URL("https://i.ytimg.com/vi/ND6a4V-xdjI/hqdefault.jpg"));
-        
+        JWindow window=new JWindow();
+        JProgressBar bar = new JProgressBar();
+        File file = new File("loading_gif.gif");
+        ImageIcon icon=new ImageIcon(file.toURI().toURL());
+        window.setLayout(new BorderLayout());
+        window.getContentPane().add(new JLabel(icon));
+        window.setSize(500, 500);
+        window.setLocationRelativeTo(null);//置中
+        frame.setLocationRelativeTo(null);//置中
+        bar.setIndeterminate(true);
+        window.getContentPane().add(bar,"South");
         //////////////////////////////////////////////////////
         
         Thread t=new Thread(){
             public void run(){
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(SplashScreenSample.class.getName()).log(Level.SEVERE, null, ex);
                 }
